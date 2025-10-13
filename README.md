@@ -19,27 +19,33 @@ SCOUT is **model-agnostic**, lightweight, and can be applied to **both link pred
 ---
 
 ## 🏗️ Repository Structure
-
 SCOUT/
 ├── src/
 │ ├── core/
-│ │ └── train_linkpred.py # Main training script (Link Prediction)
+│ │ ├── train_linkpred.py # Main training script (Link Prediction)
+│ │ ├── train_nodeclf.py # Node classification training script
+│ │ ├── generate_attributes.py # Generate node attributes via similarity measures
+│ │ └── elbow_selector.py # Elbow method for optimal anchor K
+│ │
 │ ├── models/
-│ │ ├── models.py # GCN / GraphSAGE encoders + MLP decoder
+│ │ ├── encoder.py # GCN / GraphSAGE encoders
+│ │ ├── decoder.py # MLP or inner-product decoders
 │ │ └── attr_gate.py # MeasureAttentionGateV3 (aspect gating module)
+│ │
 │ └── utils/
-│ └── dataset.py # Dataset loader (Planetoid / OGB / Amazon / Coauthor)
+│ └── data_loader.py # Dataset loader (Planetoid / OGB / Coauthor / Amazon)
 │
-├── attrs/ # Precomputed SCOUT node attributes
+├── attrs/
 │ └── Cora_concat_centrality/
 │ ├── concat_all_top10.684.npy
 │ └── meta_concat_all_top10.684.json
 │
 ├── scripts/
-│ └── run_linkpred.sh # Unified bash script for both modes
+│ └── run_linkpred.sh # Unified bash script (with/without original features)
 │
 ├── results/
-│ └── logs/
+│
+├── logs/
 │ ├── cora_wofeat_gcn.log
 │ └── cora_wfeat_gcn.log
 │
