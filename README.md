@@ -52,3 +52,5 @@ SCOUT/
 ├── requirements.txt # Pip environment (exact package versions)
 ├── requirements_conda.yaml # Conda environment (recommended)
 └── README.md
+
+---
