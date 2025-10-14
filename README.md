@@ -162,19 +162,9 @@ Python environments were managed using both pip and conda:
 
 ---
 
-## 👨‍💻 Contributors
-
-- **Sein Kim** – [GitHub Profile](https://github.com/seinkim2001)
-
----
-
 ## 📄 License
 
 This project is currently under review for WWW 2026. License details will be updated upon acceptance/publication.
 
 ---
-
-## 📚 Citation
-
-> 📌 Citation will be updated after paper acceptance at WWW 2026.
 
