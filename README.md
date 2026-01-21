@@ -169,9 +169,10 @@ Refer to the paper or `results/` for detailed tables and plots.
 ## 👥 Contributors
 
 - **Dong-Hyuk Seo** — Hanyang University  
-- **Sein Kim** — Hanyang University  
+- **Sein Kim** — Hanyang University
+- **Taeri Kim** — Hanyang University
 - **Won-Yong Shin** — Yonsei University  
-- **Sang-Wook Kim** (Corresponding Author) — Hanyang University
+- **Sang-Wook Kim** — Hanyang University
 
 ---
 
