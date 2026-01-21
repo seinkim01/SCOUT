@@ -21,8 +21,7 @@ This results in significant gains across **link prediction** and **node classifi
 
 📄 **Paper**: _SCOUT: Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information_  
 🌐 **Conference**: [The Web Conference (WWW), 2026](https://www2026.thewebconf.org)  
-📁 **Code**: [https://github.com/seinkim2001/SCOUT](https://github.com/seinkim2001/SCOUT)  
-✉️ **Contact**: seinkim@hanyang.ac.kr
+📁 **Code**: [https://github.com/seinkim01/SCOUT](https://github.com/seinkim01/SCOUT)  
 
 ---
 
