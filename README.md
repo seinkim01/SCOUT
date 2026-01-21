@@ -1,8 +1,12 @@
 # SCOUT
 
-**Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information**
+Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information
 
-[![Paper under review - WWW 2026](https://img.shields.io/badge/WWW%202026-submission-orange)](https://github.com/seinkim2001/SCOUT)
+**WWW 2026 (The Web Conference)**
+
+SCOUT is a model-agnostic node attribute augmentation framework that improves
+graph neural networks (GNNs) when node attributes are missing, sparse, or weak.
+
 
 ---
 
