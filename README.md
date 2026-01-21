@@ -1,35 +1,32 @@
-# SCOUT
+# 🚀 SCOUT: Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information
 
-Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information
+[![Paper - WWW 2026](https://img.shields.io/badge/WWW%202026-Accepted-blue.svg)](https://github.com/seinkim2001/SCOUT)  
+[![License - TBD](https://img.shields.io/badge/license-TBD-lightgrey.svg)](./LICENSE)  
+[![Python](https://img.shields.io/badge/python-≥3.8-blue.svg)]()  
+[![Framework](https://img.shields.io/badge/framework-PyTorch%20%7C%20DGL%20%2F%20PyG-orange)]()
 
-**WWW 2026 (The Web Conference)**
-
-SCOUT is a model-agnostic node attribute augmentation framework that improves
-graph neural networks (GNNs) when node attributes are missing, sparse, or weak.
-
-
----
-
-## 📌 Introduction
-
-**SCOUT** is a model-agnostic node attribute augmentation method that enhances the performance of graph neural networks (GNNs) by learning graph-aware positional information. It intelligently selects positional aspects and anchor counts to generate augmented node attributes, especially when original attributes are absent.
-
-SCOUT addresses two core challenges in positional information (PI)-based augmentation:
-1. Selecting appropriate structural measures and distance metrics.
-2. Automatically determining the optimal number of anchor nodes (K).
-
-To solve this, SCOUT:
-- Learns a graph-level attention over diverse centrality–similarity pairs (aspects).
-- Uses an elbow detector over centrality rankings to determine anchor-count.
-- Can be integrated into standard GNNs for tasks like node classification and link prediction.
-
-📄 **Paper Title**: *SCOUT: Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information*  
-🔍 **Submission**: WWW 2026 (under review)  
-📎 **Repository**: https://github.com/seinkim2001/SCOUT
+**SCOUT** is a **model-agnostic augmentation framework** that enhances graph neural networks (GNNs) when node attributes are **missing**, **sparse**, or **uninformative**, by leveraging **multi-aspect positional information** and a **graph-aware anchor selection mechanism**.
 
 ---
 
-## 📂 Table of Contents
+## 📖 Abstract
+
+> When node attributes are absent or limited, GNNs often fail to distinguish structurally similar nodes, leading to degraded downstream performance.  
+> **SCOUT** addresses this by:
+> - Selecting **positional aspects** (centrality–similarity pairs) via a graph-level attention mechanism.
+> - Determining the **anchor-count** per graph using a principled **elbow method** grounded in power-law centrality distributions.
+> - Augmenting node features with positional information that complements original attributes (when present).
+
+This results in significant gains across **link prediction** and **node classification** tasks, both with and without node attributes.
+
+📄 **Paper**: _SCOUT: Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information_  
+🌐 **Conference**: [The Web Conference (WWW), 2026](https://www2026.thewebconf.org)  
+📁 **Code**: [https://github.com/seinkim2001/SCOUT](https://github.com/seinkim2001/SCOUT)  
+✉️ **Contact**: seinkim@hanyang.ac.kr
+
+---
+
+## 📚 Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -38,6 +35,8 @@ To solve this, SCOUT:
 - [Configuration](#configuration)
 - [Dependencies](#dependencies)
 - [Examples](#examples)
+- [Experimental Results](#experimental-results)
+- [Troubleshooting](#troubleshooting)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -45,13 +44,16 @@ To solve this, SCOUT:
 
 ## ⚙️ Installation
 
-### Using Conda (recommended)
+We recommend using **Conda** to manage dependencies:
+
 ```bash
+# Recommended
 conda env create -f requirements_conda.yaml
 conda activate scout
 ```
 
-### Using pip
+Or, use pip:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -60,43 +62,35 @@ pip install -r requirements.txt
 
 ## 🚀 Usage
 
-To run the core pipeline (e.g., link prediction), use the provided shell script:
+To run **link prediction** on Cora with SCOUT:
+
 ```bash
 bash scripts/run_linkpred.sh
 ```
 
-Alternatively, you can run individual training scripts:
+For **node classification**:
+
 ```bash
-python src/core/train_linkpred.py
 python src/core/train_nodeclf.py
 ```
+
+All major configurations can be modified via the config files or script arguments.
 
 ---
 
 ## 🧱 Project Structure
 
-```plaintext
+```
 SCOUT/
-├── attrs/                      # Precomputed centrality and similarity attributes
-│   └── Cora_concat_centrality/
-├── datasets/                  # Graph datasets (e.g., Cora)
-│   └── Cora/
+├── attrs/                      # Precomputed centrality & similarity scores
+├── datasets/                  # Graph datasets (e.g., Cora, Citeseer)
 ├── logs/                      # Training logs
-├── results/                   # Output results and evaluation metrics
-├── scripts/                   # Shell scripts for experiment automation
-│   └── run_linkpred.sh
+├── results/                   # Output metrics and predictions
+├── scripts/                   # Automation scripts for experiments
 ├── src/
-│   ├── core/                  # Core training and preprocessing logic
-│   │   ├── train_linkpred.py
-│   │   ├── train_nodeclf.py
-│   │   ├── elbow_selector.py
-│   │   └── generate_attributes.py
-│   ├── models/                # GNN encoder, decoder, attribute gating module
-│   │   ├── encoder.py
-│   │   ├── decoder.py
-│   │   └── attr_gate.py
-│   └── utils/                 # Data loading and utility functions
-│       └── data_loader.py
+│   ├── core/                  # Training pipelines & preprocessing
+│   ├── models/                # GNN modules, decoder, attribute gates
+│   └── utils/                 # Data loading, helper functions
 ├── requirements.txt
 ├── requirements_conda.yaml
 └── README.md
@@ -104,21 +98,23 @@ SCOUT/
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- Model-agnostic augmentation method.
-- Learns graph-specific positional aspects (centrality–similarity pairs).
-- Automatically detects anchor-count via elbow point.
-- Compatible with GNNs for node classification & link prediction.
-- Significant performance boost on standard benchmarks (e.g., ogbn-mag, ogbl-ddi, Cora).
+- ✅ **Model-agnostic augmentation**: Integrates with any GNN backbone.
+- 🧠 **Graph-level positional aspect selection**: Learns which structural features matter.
+- 🎯 **Elbow-based anchor-count detection**: Automatically selects anchor nodes per graph.
+- 📈 **Performance improvements** on OGB & citation benchmarks, both with/without features.
+- 🔧 Supports downstream tasks: **link prediction** & **node classification**.
 
 ---
 
 ## ⚙️ Configuration
 
-- Place raw graph datasets in `datasets/` directory.
-- Precomputed centrality & similarity features should be stored under `attrs/`.
-- You may modify the anchor aspects and centrality settings inside `generate_attributes.py`.
+- Datasets: Place in `datasets/`
+- Attributes: Precompute and store in `attrs/`
+- Custom aspects: Modify `generate_attributes.py`
+- Logging: Enabled via `logs/` directory
+- Models: Can be swapped or extended under `src/models/`
 
 ---
 
@@ -127,48 +123,64 @@ SCOUT/
 - Python ≥ 3.8
 - PyTorch
 - DGL or PyG
-- NumPy
-- SciPy
-- tqdm
+- NumPy, SciPy, tqdm
+- cuGraph (optional for acceleration)
 
-> See `requirements.txt` or `requirements_conda.yaml` for full environment setup.
+Check `requirements_conda.yaml` for exact versions.
 
 ---
 
-## 🧪 Examples
+## 🔍 Examples
 
-Run link prediction on Cora without original node attributes:
 ```bash
+# Link prediction with SCOUT augmentation
 bash scripts/run_linkpred.sh
-```
 
-Train node classification with SCOUT-augmented attributes:
-```bash
+# Node classification on augmented features
 python src/core/train_nodeclf.py
 ```
 
 ---
 
-## 🧪 Experimental Environment
+## 📊 Experimental Results
 
-Experiments were run on the following machine:
+SCOUT achieves:
 
-```text
-Machine: user@peace
-GPU(s): 2x NVIDIA RTX A6000 (49GB each)
-CUDA Version: 12.2
-Driver Version: 535.247.01
-```
+- **+26.88% Hits@20** on ogbl-ddi (w/o original attributes)
+- **+11.69% accuracy** on ogbn-mag (w/ original attributes)
+- Outperforms **HPLC, P-GNN, SEAL** and others across tasks
 
-Python environments were managed using both pip and conda:
-- `pip install -r requirements.txt`
-- `conda env create -f requirements_conda.yaml`
+Refer to the paper or `results/` for detailed tables and plots.
+
+---
+
+## 🛠️ Troubleshooting
+
+- **Issue: Attribute files not found?**  
+  Ensure correct folder structure under `attrs/`.
+
+- **Issue: CUDA memory overflow?**  
+  Reduce batch size or number of anchors (`K`).
+
+- **Using PyG or DGL?**  
+  Modify model imports in `src/models/`.
+
+---
+
+## 👥 Contributors
+
+- **Dong-Hyuk Seo** — Hanyang University  
+- **Sein Kim** — Hanyang University  
+- **Won-Yong Shin** — Yonsei University  
+- **Sang-Wook Kim** (Corresponding Author) — Hanyang University
 
 ---
 
 ## 📄 License
 
-This project is currently under review for WWW 2026. License details will be updated upon acceptance/publication.
+📌 This code is currently under review for publication at **WWW 2026**.  
+The license will be updated upon acceptance. For academic use only.
 
 ---
 
+> 📣 For citation, please refer to the paper once it's published officially.
