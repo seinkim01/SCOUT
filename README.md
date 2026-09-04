@@ -6,6 +6,10 @@
 [![Python](https://img.shields.io/badge/python-≥3.8-blue.svg)]()
 [![Framework](https://img.shields.io/badge/framework-PyTorch%20%7C%20PyG-orange)]()
 
+<p align="center">
+  <img src="assets/scout_overview.png" alt="Overview of the SCOUT framework" width="820">
+</p>
+
 **SCOUT** is a **model-agnostic augmentation framework** that enhances graph neural
 networks (GNNs) when node attributes are **missing**, **sparse**, or
 **uninformative**, by leveraging **multi-aspect positional information (PI)** and a
