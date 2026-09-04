@@ -1,0 +1,31 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+env/
+
+# ---- OS / editors ----
+.DS_Store
+.idea/
+.vscode/
+
+# ---- Experiment outputs ----
+logs/*.log
+results/
+wandb/
+
+# ---- Datasets (PyG / OGB download these on first run) ----
+# Only the small Cora raw files are committed, as an offline example.
+datasets/*
+!datasets/Cora/
+datasets/Cora/*
+!datasets/Cora/raw/
+
+# ---- Generated positional attributes (large .npy) ----
+# The Cora example under attrs/Cora_concat_centrality/ is committed so the
+# quick-start scripts run on a fresh clone; everything else is regenerated
+# with src/core/generate_attributes.py.
+attrs/*
+!attrs/Cora_concat_centrality/

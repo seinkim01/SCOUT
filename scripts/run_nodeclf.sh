@@ -3,9 +3,9 @@
 # SCOUT: Structure-Aware Aspect and Anchor-Count Selection
 # for Positional Attribute Augmentation (WWW 2026)
 #
-# File: scripts/run_linkpred.sh
+# File: scripts/run_nodeclf.sh
 # Description:
-#   Unified script for Link Prediction experiments
+#   Unified script for Node Classification experiments
 #   - (1) Without original node features
 #   - (2) With original node features
 # ============================================================
@@ -18,32 +18,29 @@ ATTR_FILE="./attrs/Cora_concat_centrality/concat_all_top10.684.npy"
 META_FILE="./attrs/Cora_concat_centrality/meta_concat_all_top10.684.json"
 
 MODEL="gcn"
-DECODER="mlp"
 HIDDEN=64
 LAYER=2
 DROPOUT=0.5
-EPOCHS=2000
-LR=0.001
+EPOCHS=1000
+LR=0.01
 WEIGHT_DECAY=0.0005
 VAL_EVERY=10
-NEG_RATIO=1.0
-MRR_NEG_K=100
+PATIENCE=20
 
 LOG_DIR="./logs"
 mkdir -p $LOG_DIR
 
 
 # ============================================================
-# ① Without Original Node Features
+# (1) Without Original Node Features
 # ============================================================
-echo "Running SCOUT Link Prediction (w/o original features)..."
-python -m src.core.train_linkpred \
+echo "Running SCOUT Node Classification (w/o original features)..."
+python -m src.core.train_nodeclf \
   --dataset $DATASET \
   --data_root $DATA_ROOT \
   --attr_file $ATTR_FILE \
   --meta_file $META_FILE \
   --model $MODEL \
-  --decoder $DECODER \
   --hidden $HIDDEN \
   --layer $LAYER \
   --dropout $DROPOUT \
@@ -51,22 +48,20 @@ python -m src.core.train_linkpred \
   --lr $LR \
   --weight_decay $WEIGHT_DECAY \
   --val_every $VAL_EVERY \
-  --neg_ratio $NEG_RATIO \
-  --mrr_neg_k $MRR_NEG_K \
-  | tee $LOG_DIR/${DATASET,,}_wofeat_${MODEL}.log
+  --patience $PATIENCE \
+  | tee $LOG_DIR/${DATASET,,}_nodeclf_wofeat_${MODEL}.log
 
 
 # ============================================================
-# ② With Original Node Features
+# (2) With Original Node Features
 # ============================================================
-echo "Running SCOUT Link Prediction (w/ original features)..."
-python -m src.core.train_linkpred \
+echo "Running SCOUT Node Classification (w/ original features)..."
+python -m src.core.train_nodeclf \
   --dataset $DATASET \
   --data_root $DATA_ROOT \
   --attr_file $ATTR_FILE \
   --meta_file $META_FILE \
   --model $MODEL \
-  --decoder $DECODER \
   --hidden $HIDDEN \
   --layer $LAYER \
   --dropout $DROPOUT \
@@ -74,9 +69,8 @@ python -m src.core.train_linkpred \
   --lr $LR \
   --weight_decay $WEIGHT_DECAY \
   --val_every $VAL_EVERY \
-  --neg_ratio $NEG_RATIO \
-  --mrr_neg_k $MRR_NEG_K \
+  --patience $PATIENCE \
   --use_raw_feature \
-  | tee $LOG_DIR/${DATASET,,}_wfeat_${MODEL}.log
+  | tee $LOG_DIR/${DATASET,,}_nodeclf_wfeat_${MODEL}.log
 
-echo "All link prediction experiments completed."
+echo "All node classification experiments completed."

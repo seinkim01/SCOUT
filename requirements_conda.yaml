@@ -1,9 +1,9 @@
-name: sieg
+name: scout
 channels:
   - nvidia
   - conda-forge
   - pytorch
-  - defaultsgit branch -M main
+  - defaults
 
 dependencies:
   - _libgcc_mutex=0.1
@@ -206,4 +206,5 @@ dependencies:
       - wandb==0.21.3
       - yarl==1.15.2
       - zipp==3.20.2
-prefix: /home/user/anaconda3/envs/sieg
+      # analysis / elbow diagnostics
+      - powerlaw==1.5

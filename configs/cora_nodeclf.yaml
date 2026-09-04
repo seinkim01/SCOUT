@@ -1,0 +1,22 @@
+# Cora node classification with SCOUT positional attributes.
+# Run: python -m src.core.train_nodeclf $(see scripts/run_nodeclf.sh)
+task: node_classification
+dataset: Cora
+data_root: ./datasets
+attr_file: ./attrs/Cora_concat_centrality/concat_all_top10.684.npy
+meta_file: ./attrs/Cora_concat_centrality/meta_concat_all_top10.684.json
+
+model: gcn          # gcn | sage
+hidden: 64
+layer: 2
+att_dim: 128
+dropout: 0.5
+
+epochs: 1000
+lr: 0.01
+weight_decay: 0.0005
+val_every: 10
+patience: 20        # validations without improvement before early stop (0 disables)
+seed: 1
+
+use_raw_feature: false   # set true for the "with original features" variant

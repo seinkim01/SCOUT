@@ -25,6 +25,11 @@ networkx==3.1
 matplotlib==3.7.5
 tqdm==4.67.1
 
+# ===== Analysis: elbow / power-law diagnostics (src/analysis) =====
+seaborn==0.13.2
+kneed==0.8.5
+powerlaw==1.5
+
 # ===== Optional: logging or checkpointing =====
 tensorboardX==2.6.2.2
 # wandb==0.21.3   # (optional, uncomment if using logging)
