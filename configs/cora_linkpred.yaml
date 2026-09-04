@@ -1,0 +1,24 @@
+# Cora link prediction with SCOUT positional attributes.
+# Run: python -m src.core.train_linkpred $(see scripts/run_linkpred.sh)
+task: link_prediction
+dataset: Cora
+data_root: ./datasets
+attr_file: ./attrs/Cora_concat_centrality/concat_all_top10.684.npy
+meta_file: ./attrs/Cora_concat_centrality/meta_concat_all_top10.684.json
+
+model: gcn          # gcn | sage
+decoder: mlp        # mlp | inner
+hidden: 64
+layer: 2
+att_dim: 128
+dropout: 0.5
+
+epochs: 2000
+lr: 0.001
+weight_decay: 0.0005
+val_every: 10
+neg_ratio: 1.0
+mrr_neg_k: 100
+seed: 1
+
+use_raw_feature: false   # set true for the "with original features" variant

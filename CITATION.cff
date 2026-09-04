@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite the paper below."
+title: "SCOUT: Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information"
+authors:
+  - family-names: Seo
+    given-names: Dong-Hyuk
+    affiliation: "Hanyang University"
+  - family-names: Kim
+    given-names: Sein
+    affiliation: "Hanyang University"
+  - family-names: Kim
+    given-names: Taeri
+    affiliation: "Hanyang University"
+  - family-names: Shin
+    given-names: Won-Yong
+    affiliation: "Yonsei University"
+  - family-names: Kim
+    given-names: Sang-Wook
+    affiliation: "Hanyang University"
+year: 2026
+doi: "10.1145/3774904.3792326"
+url: "https://github.com/seinkim01/SCOUT"
+preferred-citation:
+  type: conference-paper
+  title: "SCOUT: Structure-Aware Aspect and Anchor-Count Selection for Node Attribute Augmentation via Positional Information"
+  authors:
+    - family-names: Seo
+      given-names: Dong-Hyuk
+    - family-names: Kim
+      given-names: Sein
+    - family-names: Kim
+      given-names: Taeri
+    - family-names: Shin
+      given-names: Won-Yong
+    - family-names: Kim
+      given-names: Sang-Wook
+  collection-title: "Proceedings of the ACM Web Conference 2026 (WWW '26)"
+  publisher:
+    name: "Association for Computing Machinery"
+  year: 2026
+  doi: "10.1145/3774904.3792326"

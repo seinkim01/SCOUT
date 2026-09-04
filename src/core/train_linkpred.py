@@ -34,7 +34,8 @@ def set_seed(seed: int = 1):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
@@ -52,7 +53,11 @@ def train_epoch(enc, gate, dec, data, measure_blocks, opt, crit, args):
 
     # Gated attributes
     gated, _ = gate(measure_blocks)
-    z = enc(data.edge_index.to(gated.device), gated)
+    x_in = gated
+    if args.use_raw_feature and getattr(data, "x", None) is not None:
+        raw_x = data.x.to(gated.device).float()
+        x_in = torch.cat([raw_x, gated], dim=1)
+    z = enc(data.edge_index.to(gated.device), x_in)
 
     # Positive & negative edges
     pos = data.edge_label_index[:, data.edge_label == 1].to(z.device)
@@ -83,7 +88,11 @@ def evaluate(enc, gate, dec, data, measure_blocks, args):
     dec.eval()
 
     gated, _ = gate(measure_blocks)
-    z = enc(data.edge_index.to(gated.device), gated)
+    x_in = gated
+    if args.use_raw_feature and getattr(data, "x", None) is not None:
+        raw_x = data.x.to(gated.device).float()
+        x_in = torch.cat([raw_x, gated], dim=1)
+    z = enc(data.edge_index.to(gated.device), x_in)
 
     pos = data.edge_label_index[:, data.edge_label == 1]
     neg = data.edge_label_index[:, data.edge_label == 0]
@@ -146,7 +155,10 @@ def run(args):
 
     # ------------------ Initialize modules ------------------
     gate = MeasureAttentionGateV3(block_dims, att_dim=args.att_dim).to(device)
-    enc = Encoder(args.model, sum(block_dims), args.hidden,
+    in_dim = sum(block_dims)
+    if args.use_raw_feature and getattr(train, "x", None) is not None:
+        in_dim += int(train.x.size(-1))
+    enc = Encoder(args.model, in_dim, args.hidden,
                   dropout=args.dropout, num_layers=args.layer).to(device)
     dec = MLPDecoder(args.hidden).to(device) if args.decoder == "mlp" else InnerProductDecoder().to(device)
 
